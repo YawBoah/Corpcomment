@@ -26,9 +26,10 @@ const FeedbackForm = ({onAddToList}: FeedbackFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="form">
+      
       <textarea
         value={text}
-        onChange={handleChange} 
+        onChange={handleChange}
         id="feedback-textarea"
         spellCheck={false}
         maxLength={MAX_CHARS}
