@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Container from "./components/Container";
-import Footer from "./components/Footer";
+import Container from "./components/layout/Container";
+import Footer from "./components/layout/Footer";
 import HashtagList from "./components/HashtagList";
 import { TFeedbackItem } from "./lib/types";
 
@@ -26,14 +26,17 @@ function App() {
 
     setFeedbackItems([...feedbackItems, newItem]);
 
-    await fetch("https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks", {
-      method: "POST",
-      body: JSON.stringify(newItem),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
+    await fetch(
+      "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
+      {
+        method: "POST",
+        body: JSON.stringify(newItem),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   useEffect(() => {
