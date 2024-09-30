@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Container from "./components/layout/Container";
 import Footer from "./components/layout/Footer";
 import HashtagList from "./components/hashtag/HashtagList";
@@ -10,12 +10,16 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [selectedCompany, setSelectedCompany] = useState("");
 
+  const filteredFeedbackItems = useMemo(() => selectedCompany
+    ? feedbackItems.filter((item) => item.company === selectedCompany)
+    : feedbackItems,
+  [feedbackItems, selectedCompany]);
 
-  const filteredFeedbackItems = selectedCompany ? feedbackItems.filter((item) => item.company === selectedCompany) : feedbackItems;
-
-  const companyList = feedbackItems.map((item) => item.company).filter((company, index, array) => {
-    return array.indexOf(company) === index;
-  });
+  const companyList = useMemo(() => feedbackItems
+    .map((item) => item.company)
+    .filter((company, index, array) => {
+      return array.indexOf(company) === index;
+    }), [feedbackItems]);
 
   const handleAddToList = async (text: string) => {
     const companyName = text
@@ -49,7 +53,7 @@ function App() {
 
   const handleSelectCompany = (company: string) => {
     setSelectedCompany(company);
-  }
+  };
 
   useEffect(() => {
     const fetchFeedbackItems = async () => {
@@ -87,8 +91,9 @@ function App() {
         handleAddToList={handleAddToList}
       />
 
-      <HashtagList companyList={companyList} 
-       handleSelectCompany={handleSelectCompany}
+      <HashtagList
+        companyList={companyList}
+        handleSelectCompany={handleSelectCompany}
       />
     </div>
   );
