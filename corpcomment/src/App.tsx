@@ -19,7 +19,7 @@ function App() {
     .map((item) => item.company)
     .filter((company, index, array) => {
       return array.indexOf(company) === index;
-    }) , [feedbackItems]);
+    }), [feedbackItems]);
 
   const handleAddToList = async (text: string) => {
     const companyName = text
